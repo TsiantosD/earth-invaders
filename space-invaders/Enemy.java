@@ -2,8 +2,8 @@ import greenfoot.*;
 
 public class Enemy extends Actor {
     Player p = null;
-    int step = Greenfoot.getRandomNumber(3) + 1;
-    int move_cooldown = 2;
+    public static int step = Greenfoot.getRandomNumber(3) + 1;
+    int move_cooldown = 7;
     int image_cooldown = 50;
     boolean f = true;
 
@@ -15,14 +15,14 @@ public class Enemy extends Actor {
         move_cooldown--;
         if (move_cooldown == 0) {
             if (p.getX() > getX()) {
-            setLocation(getX() + step, getY());
+                setLocation(getX() + 1, getY());
             } else if (p.getX() < getX()) {
-                setLocation(getX() - step, getY());
+                setLocation(getX() - 1, getY());
             }
             if (p.getY() > getY()) {
-                setLocation(getX(), getY() + step);
+                setLocation(getX(), getY() + 1);
             } else if (p.getY() < getY()) {
-                setLocation(getX(), getY() - step);
+                setLocation(getX(), getY() - 1);
             }
             move_cooldown = 2;
         }
