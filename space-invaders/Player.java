@@ -101,9 +101,8 @@ public class Player extends Actor {
             }
         }
         if (Greenfoot.mouseClicked(null) && !is_lost) {
-            World world = (Main)getWorld();
             Bullet b = new Bullet();
-            world.addObject(b, getX(), getY());
+            getWorld().addObject(b, getX(), getY());
             b.setRotation(getRotation());
         }
         if (isTouching(Enemy.class) && !is_lost) {
