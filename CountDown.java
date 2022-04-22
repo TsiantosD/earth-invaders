@@ -1,6 +1,6 @@
 import greenfoot.*;
 
-public class Countdown extends Text {
+public class CountDown extends Text {
     public void act() {
         
     }
