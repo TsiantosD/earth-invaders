@@ -4,8 +4,10 @@ import java.util.List;
 public class Main extends Parallax {
     List<Enemy> enemies = null;
     boolean spawn = true;
-    int level = 1;
+    boolean start = true;
+    int level = 0;
     int spawn_cooldown = 100;
+    int play_cooldown = 180;
 
     public Main() {
         addObject(new Player(), 640, 360);
@@ -15,32 +17,53 @@ public class Main extends Parallax {
     }
 
     public void spawnEnemies(int n) {
-        for (int i=0; i<n/4; i++) {
-            addObject(new Enemy(), 80, Greenfoot.getRandomNumber(720));
-        }
-        for (int i=0; i<n/4; i++) {
-            addObject(new Enemy(), 1200, Greenfoot.getRandomNumber(720));
-        }
-        for (int i=0; i<n/4; i++) {
-            addObject(new Enemy(), Greenfoot.getRandomNumber(1280), 80);
-        }
-        for (int i=0; i<n/4; i++) {
-            addObject(new Enemy(), Greenfoot.getRandomNumber(1280), 640);
+        if (n == 0)
+            n = 1;
+        int const_n = n;
+        for (int j=0; j<const_n; j++) {
+            if (n != 0) {
+                addObject(new Enemy(), 80, Greenfoot.getRandomNumber(720));
+                n--;
+            }
+            if (n != 0) {
+                addObject(new Enemy(), 1200, Greenfoot.getRandomNumber(720));
+                n--;
+            }
+            if (n != 0) {
+                addObject(new Enemy(), Greenfoot.getRandomNumber(1280), 80);
+                n--;
+            }
+            if (n != 0) {
+                addObject(new Enemy(), Greenfoot.getRandomNumber(1280), 640);
+                n--;
+            }
         }
     }
 
     public void act() {
-        enemies = getObjects(Enemy.class);
-        if (enemies.size() == 0) {
-            spawn_cooldown--;
-            if (spawn_cooldown == 0) {
-                spawn = true;
-                spawn_cooldown = 100;
+        // just entered game
+        if (play_cooldown != 0) {
+            if (start) {
+                addObject(new CountDown(), 1280/2, 720/2);
+                start = false;
             }
-        }
-        if (spawn) {
-            spawnEnemies(4);
-            spawn = false;
+            play_cooldown--;
+        } else {
+            // game starts
+            enemies = getObjects(Enemy.class);
+            if (enemies.size() == 0) {
+                spawn_cooldown--;
+                if (spawn_cooldown == 0) {
+                    spawn = true;
+                    spawn_cooldown = 100;
+                }
+            }
+            if (spawn) {
+                level++;
+                spawnEnemies(level);
+                spawn = false;
+                showText("Level: " + level, 50, 20);
+            }
         }
     }
 }

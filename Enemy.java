@@ -1,30 +1,32 @@
 import greenfoot.*;
 
 public class Enemy extends Actor {
-    Player p = null;
-    public static int step = Greenfoot.getRandomNumber(3) + 1;
-    int move_cooldown = 7;
+    Player player = null;
+    int move_cooldown, const_move_cooldown;
+    public static int step = 2;
     int image_cooldown = 50;
     boolean f = true;
 
     public void act() {
         if (f) {
-            p = getWorld().getObjects(Player.class).get(0);
+            player = getWorld().getObjects(Player.class).get(0);
+            move_cooldown = Greenfoot.getRandomNumber(3) + 2;
+            const_move_cooldown = move_cooldown;
             f = false;
         }
         move_cooldown--;
         if (move_cooldown == 0) {
-            if (p.getX() > getX()) {
-                setLocation(getX() + 1, getY());
-            } else if (p.getX() < getX()) {
-                setLocation(getX() - 1, getY());
+            if (player.getX() > getX()) {
+                setLocation(getX() + step, getY());
+            } else if (player.getX() < getX()) {
+                setLocation(getX() - step, getY());
             }
-            if (p.getY() > getY()) {
-                setLocation(getX(), getY() + 1);
-            } else if (p.getY() < getY()) {
-                setLocation(getX(), getY() - 1);
+            if (player.getY() >= getY()) {
+                setLocation(getX(), getY() + step);
+            } else if (player.getY() < getY()) {
+                setLocation(getX(), getY() - step);
             }
-            move_cooldown = 2;
+            move_cooldown = const_move_cooldown;
         }
         if (image_cooldown == 50) {
             setImage("enemy_down.png");
