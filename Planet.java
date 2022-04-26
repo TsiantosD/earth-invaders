@@ -15,7 +15,6 @@ public class Planet extends Actor {
     public void changePos(int x, int y) {
         abs_x += x;
         abs_y += y;
-        System.out.println(abs_x + " " + abs_y);
     }
 
     public void act() {
