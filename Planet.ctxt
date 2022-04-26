@@ -1,9 +1,9 @@
 #BlueJ class context
 comment0.target=Planet
-comment1.params=x\ y
-comment1.target=void\ changePos(int,\ int)
-comment2.params=
-comment2.target=Planet()
+comment1.params=gif_img
+comment1.target=Planet(GifImage)
+comment2.params=x\ y
+comment2.target=void\ changePos(int,\ int)
 comment3.params=
 comment3.target=void\ act()
 numComments=4
