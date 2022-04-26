@@ -7,6 +7,7 @@ public class Player extends Actor {
     List<Explosion> explosions = null;
     List<HealthPiece> health_pieces = null;
     List<Bullet> bullets = null;
+    List<Planet> planets = null;
 
     Boolean f = true;
     int step = 1;
@@ -31,6 +32,7 @@ public class Player extends Actor {
         if (f) {
             stars = getWorld().getObjects(Star.class);
             health_pieces = getWorld().getObjects(HealthPiece.class);
+            planets = getWorld().getObjects(Planet.class);
             f = false;
         }
         MouseInfo mouse = Greenfoot.getMouseInfo();
@@ -54,6 +56,10 @@ public class Player extends Actor {
             for (Bullet b : bullets) {
                 b.setLocation(b.getX(), b.getY() + Enemy.step);
             }
+            for (Planet p : planets) {
+                p.setLocation(p.getX(), p.getY() + Enemy.step);
+                p.changePos(0, Enemy.step);
+            }
         }
         if (Greenfoot.isKeyDown("s") && !is_lost) {
             setLocation(getX(), getY() + step);
@@ -68,6 +74,10 @@ public class Player extends Actor {
             }
             for (Bullet b : bullets) {
                 b.setLocation(b.getX(), b.getY() - Enemy.step);
+            }
+            for (Planet p : planets) {
+                p.setLocation(p.getX(), p.getY() - Enemy.step);
+                p.changePos(0, -Enemy.step);
             }
         }
         if (Greenfoot.isKeyDown("a") && !is_lost) {
@@ -84,6 +94,10 @@ public class Player extends Actor {
             for (Bullet b : bullets) {
                 b.setLocation(b.getX() + Enemy.step, b.getY());
             }
+            for (Planet p : planets) {
+                p.setLocation(p.getX() + Enemy.step, p.getY());
+                p.changePos(Enemy.step, 0);
+            }
         }
         if (Greenfoot.isKeyDown("d") && !is_lost) {
             setLocation(getX() + step, getY());
@@ -98,6 +112,10 @@ public class Player extends Actor {
             }
             for (Bullet b : bullets) {
                 b.setLocation(b.getX() - Enemy.step, b.getY());
+            }
+            for (Planet p : planets) {
+                p.setLocation(p.getX() - Enemy.step, p.getY());
+                p.changePos(-Enemy.step, 0);
             }
         }
         if (Greenfoot.mouseClicked(null) && !is_lost) {

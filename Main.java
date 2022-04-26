@@ -1,7 +1,7 @@
 import greenfoot.*;
 import java.util.List;
 
-public class Main extends Parallax {
+public class Main extends Space {
     List<Enemy> enemies = null;
     boolean spawn = true;
     boolean start = true;
