@@ -16,14 +16,14 @@ public class Enemy extends Actor {
         }
         move_cooldown--;
         if (move_cooldown == 0) {
-            if (player.getX() > getX()) {
+            if (player.getX() - 5 > getX()) {
                 setLocation(getX() + step, getY());
-            } else if (player.getX() < getX()) {
+            } else if (player.getX() + 5 < getX()) {
                 setLocation(getX() - step, getY());
             }
-            if (player.getY() >= getY()) {
+            if (player.getY() - 5 > getY()) {
                 setLocation(getX(), getY() + step);
-            } else if (player.getY() < getY()) {
+            } else if (player.getY() + 5 < getY()) {
                 setLocation(getX(), getY() - step);
             }
             move_cooldown = const_move_cooldown;

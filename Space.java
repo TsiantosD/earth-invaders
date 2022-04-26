@@ -10,6 +10,7 @@ public class Space extends World {
         }
         addObject(new Earth(), 400, 400);
         addObject(new Mars(), 1000, 200);
+        addObject(new Saturn(), 900, 650);
         setPaintOrder(
             Text.class, 
             HealthPiece.class, 
