@@ -8,14 +8,17 @@ public class Space extends World {
             addObject(new Star2(), Greenfoot.getRandomNumber(1280), Greenfoot.getRandomNumber(720));
             addObject(new Star3(), Greenfoot.getRandomNumber(1280), Greenfoot.getRandomNumber(720));
         }
-        // addObject(new Earth(), 400, 400);
+        addObject(new Earth(), 400, 400);
         addObject(new Mars(), 1000, 200);
         setPaintOrder(
             Text.class, 
+            HealthPiece.class, 
             Player.class, 
             PlayerMenu.class, 
+            Bullet.class, 
             MenuButton.class, 
             Enemy.class, 
+            Explosion.class, 
             Star1.class, 
             Planet.class, 
             Star2.class, 
