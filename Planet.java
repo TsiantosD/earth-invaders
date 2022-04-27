@@ -18,11 +18,11 @@ public class Planet extends Actor {
     }
 
     public void act() {
-        if (f) {
-            abs_x = getX();
-            abs_y = getY();
-            f = false;
-        }
+        //if (f) {
+            //abs_x = getX();
+            //abs_y = getY();
+            //f = false;
+        //}
         if (abs_x <= 0 || abs_x >= 1280) {
             setImage((GreenfootImage)null);
         } else if (abs_y <= 0 || abs_y >= 720) {
