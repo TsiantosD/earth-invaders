@@ -10,16 +10,16 @@ public class Star extends Actor {
             cooldown = 4;
         }
         if (getX() == 0) {
-            setLocation(1278, getY());
+            setLocation(1278, Greenfoot.getRandomNumber(720));
         }
         else if (getX() == 1279) {
-            setLocation(1, getY());
+            setLocation(1, Greenfoot.getRandomNumber(720));
         }
         else if (getY() == 0) {
-            setLocation(getX(), 718);
+            setLocation(Greenfoot.getRandomNumber(1280), 718);
         }
         else if (getY() == 719) {
-            setLocation(getX(), 1);
+            setLocation(Greenfoot.getRandomNumber(1280), 1);
         }
     }
 }

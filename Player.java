@@ -17,6 +17,11 @@ public class Player extends Actor {
     int prev_health = health;
     Boolean is_lost = false;
     int lost_cooldown = 150;
+    int rocket_cooldown = 100;
+    Boolean rocket_shot = false;
+
+    int abs_x = 640;
+    int abs_y = 360;
 
     public void reset_health() {
         for (int i=0; i<100; i++) {
@@ -27,7 +32,7 @@ public class Player extends Actor {
         prev_health = health;
         lost_cooldown = 150;
     }
-    
+
     public void act() {
         if (f) {
             stars = getWorld().getObjects(Star.class);
@@ -42,13 +47,15 @@ public class Player extends Actor {
         if (mouse != null && !is_lost) {
             turnTowards(mouse.getX(), mouse.getY());
         }
-        if (Greenfoot.isKeyDown("w") && !is_lost) {
-            setLocation(getX(), getY() - step);
+        if (Greenfoot.isKeyDown("w") && !is_lost && abs_y > 0) {
+            //setLocation(getX(), getY() - step);
+            abs_y -= step;
             for (Star s : stars) {
                 s.setLocation(s.getX(), s.getY() + s.step);
             }
             for (Enemy e : enemies) {
                 e.setLocation(e.getX(), e.getY() + e.step);
+                e.changePos(0, e.step);
             }
             for (Explosion x : explosions) {
                 x.setLocation(x.getX(), x.getY() + Enemy.step);
@@ -61,13 +68,15 @@ public class Player extends Actor {
                 p.changePos(0, Enemy.step);
             }
         }
-        if (Greenfoot.isKeyDown("s") && !is_lost) {
-            setLocation(getX(), getY() + step);
+        if (Greenfoot.isKeyDown("s") && !is_lost && abs_y < 720) {
+            //setLocation(getX(), getY() + step);
+            abs_y += step;
             for (Star s : stars) {
                 s.setLocation(s.getX(), s.getY() - s.step);
             }
             for (Enemy e : enemies) {
                 e.setLocation(e.getX(), e.getY() - e.step);
+                e.changePos(0, -e.step);
             }
             for (Explosion x : explosions) {
                 x.setLocation(x.getX(), x.getY() - Enemy.step);
@@ -80,13 +89,15 @@ public class Player extends Actor {
                 p.changePos(0, -Enemy.step);
             }
         }
-        if (Greenfoot.isKeyDown("a") && !is_lost) {
-            setLocation(getX() - step, getY());
+        if (Greenfoot.isKeyDown("a") && !is_lost && abs_x > 0) {
+            //setLocation(getX() - step, getY());
+            abs_x -= step;
             for (Star s : stars) {
                 s.setLocation(s.getX() + s.step, s.getY());
             }
             for (Enemy e : enemies) {
                 e.setLocation(e.getX() + e.step, e.getY());
+                e.changePos(e.step, 0);
             }
             for (Explosion x : explosions) {
                 x.setLocation(x.getX() + Enemy.step, x.getY());
@@ -99,13 +110,15 @@ public class Player extends Actor {
                 p.changePos(Enemy.step, 0);
             }
         }
-        if (Greenfoot.isKeyDown("d") && !is_lost) {
-            setLocation(getX() + step, getY());
+        if (Greenfoot.isKeyDown("d") && !is_lost && abs_x < 1280) {
+            //setLocation(getX() + step, getY());
+            abs_x += step;
             for (Star s : stars) {
                 s.setLocation(s.getX() - s.step + 1, s.getY());
             }
             for (Enemy e : enemies) {
                 e.setLocation(e.getX() - e.step, e.getY());
+                e.changePos(-e.step, 0);
             }
             for (Explosion x : explosions) {
                 x.setLocation(x.getX() - Enemy.step, x.getY());
@@ -122,6 +135,18 @@ public class Player extends Actor {
             Bullet b = new Bullet();
             getWorld().addObject(b, getX(), getY());
             b.setRotation(getRotation());
+        }
+        if (Greenfoot.isKeyDown("space") && !rocket_shot) {
+            Rocket r = new Rocket();
+            getWorld().addObject(r, getX(), getY());
+            rocket_shot = true;
+        }
+        if (rocket_shot) {
+            rocket_cooldown--;
+            if (rocket_cooldown == 0) {
+                rocket_shot = false;
+                rocket_cooldown = 100;
+            }
         }
         if (isTouching(Enemy.class) && !is_lost) {
             Enemy e = (Enemy)getOneIntersectingObject(Enemy.class);
