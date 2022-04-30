@@ -31,6 +31,7 @@ public class Space extends World {
             Player.class, 
             PlayerMenu.class, 
             Bullet.class, 
+            Rocket.class, 
             MenuButton.class, 
             Enemy.class, 
             Explosion.class, 

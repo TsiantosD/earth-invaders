@@ -1,7 +1,7 @@
 import greenfoot.*;
 
 public class Rocket extends Actor {
-    int destroy_cooldown = 300;
+    int destroy_cooldown = 350;
     int mouse_x = 0;
     int mouse_y = 0;
 

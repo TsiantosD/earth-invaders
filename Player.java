@@ -6,6 +6,7 @@ public class Player extends Actor {
     List<Enemy> enemies = null;
     List<Explosion> explosions = null;
     List<HealthPiecePlayer> health_pieces = null;
+    List<HealthPieceEarth> health_pieces_earth = null;
     List<Bullet> bullets = null;
     List<Planet> planets = null;
 
@@ -30,15 +31,15 @@ public class Player extends Actor {
         health_pieces = getWorld().getObjects(HealthPiecePlayer.class);
         health = 100;
         prev_health = health;
-        // health_pieces_earth = getWorld().getObjects(HealthPieceEarth.class);
         lost_cooldown = 150;
     }
 
     public void act() {
         if (f) {
+            reset_health();
             stars = getWorld().getObjects(Star.class);
             health_pieces = getWorld().getObjects(HealthPiecePlayer.class);
-
+            health_pieces_earth = getWorld().getObjects(HealthPieceEarth.class);
             planets = getWorld().getObjects(Planet.class);
             f = false;
         }
@@ -46,6 +47,7 @@ public class Player extends Actor {
         enemies = getWorld().getObjects(Enemy.class);
         explosions = getWorld().getObjects(Explosion.class);
         bullets = getWorld().getObjects(Bullet.class);
+        health_pieces_earth = getWorld().getObjects(HealthPieceEarth.class);
         if (mouse != null && !is_lost) {
             turnTowards(mouse.getX(), mouse.getY());
         }
@@ -69,6 +71,10 @@ public class Player extends Actor {
                 p.setLocation(p.getX(), p.getY() + Enemy.step);
                 p.changePos(0, Enemy.step);
             }
+            for (HealthPieceEarth h : health_pieces_earth) {
+                h.setLocation(h.getX(), h.getY() + Enemy.step);
+                h.changePos(0, Enemy.step);
+            }
         }
         if (Greenfoot.isKeyDown("s") && !is_lost && abs_y < 720) {
             //setLocation(getX(), getY() + step);
@@ -89,6 +95,10 @@ public class Player extends Actor {
             for (Planet p : planets) {
                 p.setLocation(p.getX(), p.getY() - Enemy.step);
                 p.changePos(0, -Enemy.step);
+            }
+            for (HealthPieceEarth h : health_pieces_earth) {
+                h.setLocation(h.getX(), h.getY() - Enemy.step);
+                h.changePos(0, -Enemy.step);
             }
         }
         if (Greenfoot.isKeyDown("a") && !is_lost && abs_x > 0) {
@@ -111,6 +121,10 @@ public class Player extends Actor {
                 p.setLocation(p.getX() + Enemy.step, p.getY());
                 p.changePos(Enemy.step, 0);
             }
+            for (HealthPieceEarth h : health_pieces_earth) {
+                h.setLocation(h.getX() + Enemy.step, h.getY() );
+                h.changePos(Enemy.step, 0);
+            }
         }
         if (Greenfoot.isKeyDown("d") && !is_lost && abs_x < 1280) {
             //setLocation(getX() + step, getY());
@@ -131,6 +145,10 @@ public class Player extends Actor {
             for (Planet p : planets) {
                 p.setLocation(p.getX() - Enemy.step, p.getY());
                 p.changePos(-Enemy.step, 0);
+            }
+            for (HealthPieceEarth h : health_pieces_earth) {
+                h.setLocation(h.getX() - Enemy.step, h.getY() );
+                h.changePos(-Enemy.step, 0);
             }
         }
         if (Greenfoot.mouseClicked(null) && !is_lost) {
@@ -173,7 +191,7 @@ public class Player extends Actor {
         if (health != prev_health) {
             if (health != 0) {
                 for (int i=0; i<prev_health-health; i++) {
-                    HealthPiece h = health_pieces.get(i);
+                    HealthPiecePlayer h = health_pieces.get(i);
                     getWorld().removeObject(h);
                 }
                 health_pieces = getWorld().getObjects(HealthPiecePlayer.class);
