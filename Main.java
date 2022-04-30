@@ -3,6 +3,7 @@ import java.util.List;
 
 public class Main extends Space {
     List<Enemy> enemies = null;
+    List<HealthPieceEarth> health_pieces_earth = null;
     boolean spawn = true;
     boolean start = true;
     int level = 0;
@@ -44,7 +45,11 @@ public class Main extends Space {
         // just entered game
         if (play_cooldown != 0) {
             if (start) {
-                addObject(new CountDown(), 1280/2, 720/2);
+                for (int i=0; i<100; i++) {
+                    addObject(new HealthPieceEarth(), 540 + i*2, 265);
+                }
+                health_pieces_earth = getObjects(HealthPieceEarth.class);
+                addObject(new CountDown(), 1280/2, 720/4);
                 start = false;
             }
             play_cooldown--;

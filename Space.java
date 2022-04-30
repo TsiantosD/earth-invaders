@@ -14,8 +14,8 @@ public class Space extends World {
         }
 
         Planet e = new Earth();
-        addObject(e, 1000, 500);
-        e.changePos(1000, 500);
+        addObject(e, width/2, height/2);
+        e.changePos(width/2, height/2);
 
         Planet m = new Mars();
         addObject(m, 100, 200);

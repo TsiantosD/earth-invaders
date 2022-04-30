@@ -5,7 +5,7 @@ public class Player extends Actor {
     List<Star> stars = null;
     List<Enemy> enemies = null;
     List<Explosion> explosions = null;
-    List<HealthPiece> health_pieces = null;
+    List<HealthPiecePlayer> health_pieces = null;
     List<Bullet> bullets = null;
     List<Planet> planets = null;
 
@@ -25,18 +25,20 @@ public class Player extends Actor {
 
     public void reset_health() {
         for (int i=0; i<100; i++) {
-            getWorld().addObject(new HealthPiece(), 1080 + i*2, 30);
+            getWorld().addObject(new HealthPiecePlayer(), 1080 + i*2, 30);
         }
-        health_pieces = getWorld().getObjects(HealthPiece.class);
+        health_pieces = getWorld().getObjects(HealthPiecePlayer.class);
         health = 100;
         prev_health = health;
+        // health_pieces_earth = getWorld().getObjects(HealthPieceEarth.class);
         lost_cooldown = 150;
     }
 
     public void act() {
         if (f) {
             stars = getWorld().getObjects(Star.class);
-            health_pieces = getWorld().getObjects(HealthPiece.class);
+            health_pieces = getWorld().getObjects(HealthPiecePlayer.class);
+
             planets = getWorld().getObjects(Planet.class);
             f = false;
         }
@@ -174,7 +176,7 @@ public class Player extends Actor {
                     HealthPiece h = health_pieces.get(i);
                     getWorld().removeObject(h);
                 }
-                health_pieces = getWorld().getObjects(HealthPiece.class);
+                health_pieces = getWorld().getObjects(HealthPiecePlayer.class);
                 prev_health = health;
             }
         }
