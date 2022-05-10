@@ -7,7 +7,7 @@ public class Space extends World {
     public Space() {
         super(1280, 720, 1);
 
-        for (int i=0; i<=50; i++) {
+        for (int i=0; i<=25; i++) {
             addObject(new Star1(), Greenfoot.getRandomNumber(width), Greenfoot.getRandomNumber(height));
             addObject(new Star2(), Greenfoot.getRandomNumber(width), Greenfoot.getRandomNumber(height));
             addObject(new Star3(), Greenfoot.getRandomNumber(width), Greenfoot.getRandomNumber(height));
@@ -35,8 +35,8 @@ public class Space extends World {
             MenuButton.class, 
             Enemy.class, 
             Explosion.class, 
-            Star1.class, 
             Planet.class, 
+            Star1.class, 
             Star2.class, 
             Star3.class
         );

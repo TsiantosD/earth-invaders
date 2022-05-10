@@ -57,6 +57,9 @@ public class Main extends Space {
                     spawn_cooldown = 100;
                 }
             }
+            if (level == 10) {
+                Greenfoot.stop();
+            }
             if (spawn) {
                 level++;
                 spawnEnemies(level);
