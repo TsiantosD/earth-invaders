@@ -1,15 +1,15 @@
 import greenfoot.*;
 
 public class PlayButton extends MenuButton {
-    int image_cooldown = 50;
+    int image_cooldown = 80;
 
     public void act() {
-        if (image_cooldown == 50) {
+        if (image_cooldown == 80) {
             setImage("play_down.png");
-        } else if (image_cooldown == 25) {
+        } else if (image_cooldown == 40) {
             setImage("play_up.png");
         } else if (image_cooldown == 0) {
-            image_cooldown = 51;
+            image_cooldown = 81;
         }
         image_cooldown--;
         if (isTouching(Bullet.class)) {
