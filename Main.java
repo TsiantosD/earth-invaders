@@ -70,7 +70,11 @@ public class Main extends Space {
                 won_cooldown--;
             }
             if (spawn) {
-                spawnEnemies(level);
+                if (level < 5) {
+                    spawnEnemies(4);
+                } else {
+                    spawnEnemies(level);
+                }
                 spawn = false;
                 showText("Level: " + level, 50, 20);
             }

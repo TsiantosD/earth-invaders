@@ -1,5 +1,8 @@
 import greenfoot.*;
 
+// Sound from Zapsplat.com
+// Planet GIFs by: https://deep-fold.itch.io/pixel-planet-generator
+
 public class Space extends World {
     int height = getHeight();
     int width = getWidth();
@@ -24,7 +27,11 @@ public class Space extends World {
         Planet s = new Saturn();
         addObject(s, 500, 700);
         s.changePos(500, 700);
-
+        
+        Planet sun = new Sun();
+        addObject(sun, 1180, 80);
+        sun.changePos(1180, 80);
+    
         setPaintOrder(
             Text.class, 
             HealthPiece.class, 

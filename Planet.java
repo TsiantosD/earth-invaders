@@ -1,8 +1,5 @@
 import greenfoot.*;
 
-// Planet GIFs by:
-// https://deep-fold.itch.io/pixel-planet-generator
-
 public class Planet extends Actor {
     GifImage gif_image = null;
 
