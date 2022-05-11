@@ -19,7 +19,7 @@ public class Enemy extends Actor {
     public void act() {
         if (f) {
             player = getWorld().getObjects(Player.class).get(0);
-            move_cooldown = Greenfoot.getRandomNumber(3) + 2;
+            move_cooldown = Greenfoot.getRandomNumber(2) + 1;
             const_move_cooldown = move_cooldown;
             abs_x = getX();
             abs_y = getY();
