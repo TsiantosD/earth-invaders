@@ -5,9 +5,10 @@ public class Main extends Space {
     List<Enemy> enemies = null;
     boolean spawn = true;
     boolean start = true;
-    int level = 0;
+    int level = 1;
     int spawn_cooldown = 100;
     int play_cooldown = 180;
+    int won_cooldown = 100;
 
     public Main() {
         addObject(new Player(), 640, 360);
@@ -40,8 +41,8 @@ public class Main extends Space {
         // just entered game
         if (play_cooldown != 0) {
             if (start) {
-                for (int i=0; i<100; i++) {
-                    addObject(new HealthPieceEarth(), 540 + i*2, 265);
+                for (int i=0; i<5; i++) {
+                    addObject(new HealthPieceEarth(), 540 + i*40, 265);
                 }
                 addObject(new CountDown(), 1280/2, 720/4);
                 start = false;
@@ -50,7 +51,7 @@ public class Main extends Space {
         } else {
             // game starts
             enemies = getObjects(Enemy.class);
-            if (enemies.size() == 0) {
+            if (enemies.size() == 0 && level != 10) {
                 spawn_cooldown--;
                 if (spawn_cooldown == 0) {
                     spawn = true;
@@ -60,7 +61,13 @@ public class Main extends Space {
             }
             if (level == 10) {
                 spawn = false;
-                Greenfoot.stop();
+                if (won_cooldown == 100) {
+                    addObject(new Won(), 1280/2, 720/3);
+                }
+                else if (won_cooldown == 0) {
+                    Greenfoot.stop();
+                }
+                won_cooldown--;
             }
             if (spawn) {
                 spawnEnemies(level);

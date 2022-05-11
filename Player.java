@@ -18,6 +18,7 @@ public class Player extends Actor {
     int prev_health = health;
     Boolean is_lost = false;
     int lost_cooldown = 150;
+   int reset_cooldown = 200;
     int rocket_cooldown = 100;
     Boolean rocket_shot = false;
 
@@ -25,8 +26,8 @@ public class Player extends Actor {
     int abs_y = 360;
 
     public void reset_health() {
-        for (int i=0; i<100; i++) {
-            getWorld().addObject(new HealthPiecePlayer(), 1080 + i*2, 30);
+        for (int i=0; i<5; i++) {
+            getWorld().addObject(new HealthPiecePlayer(), 1080 + i*40, 30);
         }
         health_pieces = getWorld().getObjects(HealthPiecePlayer.class);
         health = 100;
@@ -170,7 +171,11 @@ public class Player extends Actor {
         }
         if (isTouching(Enemy.class) && !is_lost) {
             Enemy e = (Enemy)getOneIntersectingObject(Enemy.class);
-            getWorld().addObject(new EnemyExplosion(), e.getX(), e.getY());
+            if (e.image_choice == 0) {
+                getWorld().addObject(new EnemyExplosion(), e.getX(), e.getY());
+            } else {
+                getWorld().addObject(new EnemyExplosion2(), e.getX(), e.getY());
+            }
             removeTouching(Enemy.class);
             health-=20;
             is_hit = true;
@@ -190,10 +195,8 @@ public class Player extends Actor {
         }
         if (health != prev_health) {
             if (health != 0) {
-                for (int i=0; i<prev_health-health; i++) {
-                    HealthPiecePlayer h = health_pieces.get(i);
-                    getWorld().removeObject(h);
-                }
+                HealthPiecePlayer h = health_pieces.get(0);
+                getWorld().removeObject(h);
                 health_pieces = getWorld().getObjects(HealthPiecePlayer.class);
                 prev_health = health;
             }
@@ -204,6 +207,7 @@ public class Player extends Actor {
             }
             health_pieces = null;
             is_lost = true;
+            getWorld().addObject(new Lost(), 1280/2, 720/3);
         }
         if (is_lost) {
             if (lost_cooldown == 150) {
@@ -218,6 +222,7 @@ public class Player extends Actor {
                 setImage("spaceship.png");
                 reset_health();
                 is_lost = false;
+                Greenfoot.stop();
             }
             lost_cooldown--;
         }

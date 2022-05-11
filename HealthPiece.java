@@ -21,7 +21,7 @@ public class HealthPiece extends Actor {
         } else if (abs_y <= 0 || abs_y >= 720) {
             setImage((GreenfootImage)null);
         } else {
-            setImage("health_01.png");
+            setImage("health-1-5.png");
             setLocation(abs_x, abs_y);
         }
     }

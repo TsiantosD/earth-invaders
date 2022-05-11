@@ -6,6 +6,7 @@ public class Enemy extends Actor {
     public static int step = 2;
     int image_cooldown = 50;
     boolean f = true;
+    int image_choice = 0;
 
     int abs_x;
     int abs_y;
@@ -23,6 +24,7 @@ public class Enemy extends Actor {
             abs_x = getX();
             abs_y = getY();
             f = false;
+            image_choice = Greenfoot.getRandomNumber(2);
         }
         if (abs_x <= 0 || abs_x >= 1280) {
             setImage((GreenfootImage)null);
@@ -30,9 +32,17 @@ public class Enemy extends Actor {
             setImage((GreenfootImage)null);
         } else {
             if (image_cooldown == 50) {
-                setImage("enemy_down.png");
+                if (image_choice == 0) {
+                    setImage("enemy_down.png");
+                } else {
+                    setImage("enemy2_down.png");
+                }
             } else if (image_cooldown == 25) {
-                setImage("enemy_up.png");
+                if (image_choice == 0) {
+                    setImage("enemy_up.png");
+                } else {
+                    setImage("enemy2_up.png");
+                }
             } else if (image_cooldown == 0) {
                 image_cooldown = 51;
             }
